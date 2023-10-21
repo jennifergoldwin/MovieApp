@@ -36,8 +36,8 @@ class MovieViewModel @Inject constructor(private val repository: MovieRepository
     private val _favMovies = MutableStateFlow<PagingData<Movie>>(PagingData.empty())
     val favMovies: Flow<PagingData<Movie>> get() = _favMovies //SHOW LIST FAV
 
-    private val _moviesExistsInFav = MutableLiveData<Movie>()
-    val movieExistsInFav: LiveData<Movie> get() = _moviesExistsInFav //IS MOVIE ADDED TO FAV
+    private val _moviesExistsInFav = MutableLiveData<Movie?>()
+    val movieExistsInFav: LiveData<Movie?> get() = _moviesExistsInFav //IS MOVIE ADDED TO FAV
 
     private val _searchedMoviesDAO = MutableStateFlow<PagingData<Movie>>(PagingData.empty())
     val searchedMoviesDAO: Flow<PagingData<Movie>> get() = _searchedMoviesDAO
@@ -79,6 +79,7 @@ class MovieViewModel @Inject constructor(private val repository: MovieRepository
                 _moviesExistsInFav.postValue(it)
             },{
                 Log.e("error", it.message.toString())
+                _moviesExistsInFav.postValue(null)
             }
         )
     }

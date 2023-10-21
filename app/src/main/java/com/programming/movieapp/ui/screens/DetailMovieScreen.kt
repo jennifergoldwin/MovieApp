@@ -1,7 +1,7 @@
 package com.programming.movieapp.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -25,8 +25,10 @@ fun DetailMovieScreen(movieId: Int, viewModel: MovieViewModel) {
     LaunchedEffect(key1 = true) {
         viewModel.getMovieDetail(movieId)
         viewModel.isMovieInDao(movieId)
-    }
 
+        Log.e("MOVIEDAO",movieInDAO.toString())
+    }
+    Log.e("MOVIEDAO 1",movieInDAO.toString())
     if (movie != null) {
         MovieDetailContent(movie = movie!!,posterUrl = viewModel.getPosterUrl(movie!!.posterUrl).toString(), viewModel = viewModel, movieInDAO = movieInDAO)
     } else {
